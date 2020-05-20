@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% for blog in blogs.all %}
+        <h1>{{ blog.title }}</h1>
+        <p>{{ blog.pub_date}}</p>
+        <p>{{ blog.body }}</p>
+    {% endfor %}
+
+    <!-- 템플릿 변수 {{ blogs }}는 리스트 형식의 쿼리셋 객체
+        {{ blogs.all }} 구문 사용해 객체에 있는 모든 쿼리셋 가져와 출력!
+        객체.count(), 객체.first(), 객체.last() 등 다양한 메소드 있음 -->
+</body>
+</html>

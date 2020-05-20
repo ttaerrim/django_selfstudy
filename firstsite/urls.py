@@ -18,11 +18,13 @@ from django.urls import path
 import hello.views 
 ## from hello import views 동일
 import wordcount.views
+import blog.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', hello.views.home, name='home'),
-    path('wc', wordcount.views.home, name="wchome"),
+    path('wc/', wordcount.views.home, name="wchome"),
     path('wc/about/', wordcount.views.about, name="wcabout"),
     path('wc/count/', wordcount.views.count, name="wccount"),
+    path('blog/', blog.views.home, name="bloghome"),
 ]
