@@ -27,4 +27,6 @@ urlpatterns = [
     path('wc/count/', wordcount.views.count, name="wccount"),
     path('blog/', blog.views.home, name="bloghome"),
     path('blog/<int:blog_id>', blog.views.detail, name="blogdetail"), #path-converter <type:name> 같은 모양
+    path('blog/post/', blog.views.post, name="blogpost"),
+    path('blog/create/', blog.views.create, name="blogcreate"),
 ]
