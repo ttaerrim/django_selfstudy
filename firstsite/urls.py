@@ -15,8 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-import hello.views 
-## from hello import views 동일
+import hello.views  ## from hello import views 동일
 import wordcount.views
 import blog.views
 
@@ -27,4 +26,5 @@ urlpatterns = [
     path('wc/about/', wordcount.views.about, name="wcabout"),
     path('wc/count/', wordcount.views.count, name="wccount"),
     path('blog/', blog.views.home, name="bloghome"),
+    path('blog/<int:blog_id>', blog.views.detail, name="blogdetail"), #path-converter <type:name> 같은 모양
 ]
