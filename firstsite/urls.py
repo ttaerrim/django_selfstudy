@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-import hello.views  ## from hello import views 동일
+import hello.views  # from hello import views 동일
 import wordcount.views
 import blog.views
+import portfolio.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,7 +27,9 @@ urlpatterns = [
     path('wc/about/', wordcount.views.about, name="wcabout"),
     path('wc/count/', wordcount.views.count, name="wccount"),
     path('blog/', blog.views.home, name="bloghome"),
-    path('blog/<int:blog_id>', blog.views.detail, name="blogdetail"), #path-converter <type:name> 같은 모양
+    # path-converter <type:name> 같은 모양
+    path('blog/<int:blog_id>', blog.views.detail, name="blogdetail"),
     path('blog/post/', blog.views.post, name="blogpost"),
     path('blog/create/', blog.views.create, name="blogcreate"),
+    path('portfolio/', portfolio.views.home, name="portfoliohome"),
 ]

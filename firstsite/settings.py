@@ -37,9 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'hello.apps.HelloConfig', ## 'hello',
-    'wordcount.apps.WordcountConfig', ## 'wordcount',
+    'hello.apps.HelloConfig',  # 'hello',
+    'wordcount.apps.WordcountConfig',  # 'wordcount',
     'blog.apps.BlogConfig',
+    'portfolio.apps.PortfolioConfig',
 ]
 
 MIDDLEWARE = [
@@ -119,5 +120,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'portfolio', 'static')
+]
+# static 파일들이 들어 있는 경로
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# static 파일 한 곳에 모은 위치
 
 STATIC_URL = '/static/'
