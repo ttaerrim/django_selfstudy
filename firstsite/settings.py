@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'wordcount.apps.WordcountConfig',  # 'wordcount',
     'blog.apps.BlogConfig',
     'portfolio.apps.PortfolioConfig',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
