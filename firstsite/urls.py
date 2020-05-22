@@ -20,6 +20,8 @@ import wordcount.views
 import blog.views
 import portfolio.views
 
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', hello.views.home, name='home'),
@@ -32,4 +34,4 @@ urlpatterns = [
     path('blog/post/', blog.views.post, name="blogpost"),
     path('blog/create/', blog.views.create, name="blogcreate"),
     path('portfolio/', portfolio.views.home, name="portfoliohome"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

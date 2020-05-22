@@ -130,3 +130,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # static 파일 한 곳에 모은 위치
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
