@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 import hello.views  # from hello import views 동일
 import wordcount.views
 import blog.views
@@ -22,16 +22,15 @@ import portfolio.views
 
 from django.conf import settings
 from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', hello.views.home, name='home'),
-    path('wc/', wordcount.views.home, name="wchome"),
-    path('wc/about/', wordcount.views.about, name="wcabout"),
-    path('wc/count/', wordcount.views.count, name="wccount"),
-    path('blog/', blog.views.home, name="bloghome"),
-    # path-converter <type:name> 같은 모양
-    path('blog/<int:blog_id>', blog.views.detail, name="blogdetail"),
-    path('blog/post/', blog.views.post, name="blogpost"),
-    path('blog/create/', blog.views.create, name="blogcreate"),
-    path('portfolio/', portfolio.views.home, name="portfoliohome"),
+
+    path('wc/', include('wordcount.urls')),
+
+    path('blog/', include('blog.urls')),
+
+    path('portfolio/', include('portfolio.urls')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
