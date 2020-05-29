@@ -27,6 +27,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav ml-auto">
             <a class="nav-item nav-link active" href="{% url 'home' %}">Home</a>
+            <a class="nav-item nav-link" href="{% url 'bloghome' %}">Blog</a>
             <a class="nav-item nav-link" href="{% url 'wchome' %}">Wordcount</a>
             <a class="nav-item nav-link" href="{% url 'portfoliohome' %}">Portfolio</a>
             <a class="nav-item nav-link" href="{% static 'testimonial.pdf' %}">수료증</a>
@@ -35,8 +36,7 @@
             <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             환영합니다. {{ user.username }} 님!</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{% url 'bloghome' %}">Blog</a>
-                <a class="dropdown-item" href="{% url 'blogpost' %}">글쓰기</a>
+                <a class="dropdown-item" href="{% url 'blognow' %}">글쓰기</a>
                 <a class="dropdown-item" href="javascript:{document.getElementById('logout').submit()}">Logout</a>
                 <form id="logout" method="POST" action="{% url 'accountslogout' %}">
                     {% csrf_token %} <input type="hidden"/>
@@ -53,13 +53,10 @@
             {% endif %}
             </div>
         </div>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
     </div>
     </nav>
         <div class="container">
+        <br>
             {% block content %}
             {% endblock content %}
         </div>
