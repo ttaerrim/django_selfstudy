@@ -8,7 +8,8 @@ from .forms import BlogPost
 
 def home(request):
     blogs = Blog.objects  # blog 안의 데이터들, 모델로부터 전달받은 객체 목록: 쿼리셋, 쿼리셋 처리해주는 방법: 메소드
-    blog_list = Blog.objects.all()  # 블로그 모든 글을 불러와서
+    #.order_by('-id')는 글 순서 최신 순으로
+    blog_list = Blog.objects.order_by('-id')  # 블로그 모든 글을 불러와서
     paginator = Paginator(blog_list, 3)  # 블로그 객체 세 개를 한 페이지로 자르기
     # request된 페이지 뭔지 알아내고 (request 페이지를 변수에 담음)
     page = request.GET.get('page')
@@ -38,11 +39,29 @@ def create(request):
 def blogpost(request):
     if request.method == 'POST':
         form = BlogPost(request.POST)
-        if form.is_vaild():
+        if form.is_valid():
             post = form.save(commit=False)
             post.pub_date = timezone.now()
             post.save()
-            return redirect('home')
+            return redirect('bloghome')
     else:
         form = BlogPost()
         return render(request, 'blog/new.html', {'form': form})
+
+def edit(request, pk):
+    blog = get_object_or_404(Blog, pk=pk)
+    if request.method == "POST":
+        form = BlogPost(request.POST, instance=blog)
+        if form.is_valid():
+            blog = form.save(commit = False)
+            blog.pub_date = timezone.now()
+            blog.save()
+            return redirect('bloghome')
+    else:
+        form = BlogPost(instance = blog)
+        return render(request, 'blog/edit.html', {'form': form})
+
+def delete(request, pk):
+    blog = Blog.objects.get(id=pk)
+    blog.delete()
+    return redirect('bloghome')

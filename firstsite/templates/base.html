@@ -10,6 +10,12 @@
 
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+    .container {
+        font-family: 'Open Sans', sans-serif;
+    }
+    </style>
 
     
 
@@ -29,13 +35,13 @@
             <a class="nav-item nav-link active" href="{% url 'home' %}">Home</a>
             <a class="nav-item nav-link" href="{% url 'wchome' %}">Wordcount</a>
             <a class="nav-item nav-link" href="{% url 'portfoliohome' %}">Portfolio</a>
-            <a class="nav-item nav-link" href="{% static 'testimonial.pdf' %}">수료증</a>
+            <a class="nav-item nav-link" href="{% static 'likelion.pdf' %}">수료증</a>
+            <a class="nav-item nav-link" href="{% url 'bloghome'%}">Blog</a>
             {% if user.is_authenticated %}
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             환영합니다. {{ user.username }} 님!</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{% url 'bloghome' %}">Blog</a>
                 <a class="dropdown-item" href="{% url 'blogpost' %}">글쓰기</a>
                 <a class="dropdown-item" href="javascript:{document.getElementById('logout').submit()}">Logout</a>
                 <form id="logout" method="POST" action="{% url 'accountslogout' %}">
