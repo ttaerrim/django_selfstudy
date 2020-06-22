@@ -67,7 +67,7 @@ def edit(request, pk):
             blog = form.save(commit=False)
             blog.pub_date = timezone.now()
             blog.save()
-            return redirect('bloghome')
+            return redirect('blog:home')
     else:
         form = BlogPost(instance=blog)
         return render(request, 'blog/edit.html', {'form': form})
@@ -76,4 +76,4 @@ def edit(request, pk):
 def delete(request, pk):
     blog = Blog.objects.get(id=pk)
     blog.delete()
-    return redirect('bloghome')
+    return redirect('blog:home')

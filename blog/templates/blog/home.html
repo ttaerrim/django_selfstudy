@@ -2,7 +2,7 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-<a class="btn btn-outline-secondary" href="{% url 'blog:post' %}">글 쓰기</a>
+<a class="btn btn-outline-secondary" href="{% url 'blog:now' %}">글 쓰기</a>
 {% endif %}
 <br>
 <br>
@@ -24,7 +24,7 @@
       <td><a color="#2E2E2E" onMouseOver="this.style.color='#F7819F'" onMouseOut="this.style.color='#507AFF'" href="{% url 'blog:detail' blog.id %}">{{blog.title}}
     </a></td>
       <td>{% if blog.writer %} {{ blog.writer }} {% else %}익명{% endif %}</td>
-      <td>{{blog.pub_date |date:"Y n j H:i"}}</td>
+      <td>{{blog.pub_date |date:"Y.n.j H:i"}}</td>
     </tr>
    
         
