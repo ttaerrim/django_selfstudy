@@ -4,9 +4,9 @@
 
         <h1>Wordcount</h1>
 
-        <a class="badge badge-pill badge-light" href="{% url 'wcabout' %}">ABOUT</a>
+        <a class="badge badge-pill badge-light" href="{% url 'wc:about' %}">ABOUT</a>
 
-        <form action="{% url 'wccount' %}">
+        <form action="{% url 'wc:count' %}">
             <textarea cols="40" rows="10" name="fulltext"></textarea>
             <br>
             <input class="btn btn-outline-secondary" type="submit" value="Count!"/>

@@ -9,7 +9,7 @@
 
 <h1>Log in</h1>
 
-<form method="POST" action="{% url 'accountslogin' %}">
+<form method="POST" action="{% url 'accounts:login' %}">
 {% csrf_token %}
     Username:
     <br>
