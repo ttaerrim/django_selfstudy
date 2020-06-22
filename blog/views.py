@@ -1,8 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
+
 from .models import Blog
 from .forms import BlogPost
+from accounts.models import Profile
 # Create your views here.
 
 
@@ -37,14 +40,20 @@ def create(request):  # model 사용
     return redirect('/blog/' + str(blog.id))
 
 
+@login_required
 def blogpost(request):  # form 사용
     if request.method == 'POST':
         form = BlogPost(request.POST)
         if form.is_valid():
+            conn_user = request.user
+            conn_profile = Profile.objects.get(user=conn_user)
+            nickname = conn_profile.nickname
+
             post = form.save(commit=False)
+            post.writer = nickname
             post.pub_date = timezone.now()
             post.save()
-            return redirect('bloghome')
+            return redirect('blog:home')
     else:
         form = BlogPost()
         return render(request, 'blog/new.html', {'form': form})

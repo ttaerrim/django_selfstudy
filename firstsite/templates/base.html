@@ -42,7 +42,8 @@
             <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             환영합니다. {% if user.profile.nickname != "" %} {{ user.profile.nickname }} 님! {% else %} {{ user.username }} 님!{% endif %}</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{% url 'blog:post' %}">글쓰기</a>
+                <a class="dropdown-item" href="{% url 'blog:now' %}">글쓰기</a>
+                <a class="dropdown-item" href="{% url 'accounts:mypage' %}">My Page</a>
                 <a class="dropdown-item" href="javascript:{document.getElementById('logout').submit()}">Logout</a>
                 <form id="logout" method="POST" action="{% url 'logout' %}">
                     {% csrf_token %} <input type="hidden"/>

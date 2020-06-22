@@ -4,8 +4,11 @@ from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
-from .forms import ProfileForm, UserCreationMultiForm
+from django.contrib.auth.decorators import login_required
 
+
+from .forms import ProfileForm, UserCreationMultiForm
+from .models import Profile
 # Create your views here.
 
 
@@ -27,6 +30,18 @@ class UserSignupView(generic.CreateView):
         profile.save()
         return redirect(self.success_url)
 
+
+@login_required
+def mypage(request):
+    conn_user = request.user
+    conn_profile = Profile.objects.get(user=conn_user)
+
+    context = {
+        'id': conn_user.username,
+        'nickname': conn_profile.nickname,
+        'intro': conn_profile.introduce,
+    }
+    return render(request, 'accounts/mypage.html', context=context)
 # def signup(request):
 #     if request.method == "POST":
 #         if request.POST["password1"] == request.POST["password2"]:
