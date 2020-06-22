@@ -13,7 +13,7 @@ def home(request):
     blogs = Blog.objects  # blog 안의 데이터들, 모델로부터 전달받은 객체 목록: 쿼리셋, 쿼리셋 처리해주는 방법: 메소드
     # .order_by('-id')는 글 순서 최신 순으로
     blog_list = Blog.objects.order_by('-id')  # 블로그 모든 글을 불러와서
-    paginator = Paginator(blog_list, 3)  # 블로그 객체 세 개를 한 페이지로 자르기
+    paginator = Paginator(blog_list, 5)  # 블로그 객체 세 개를 한 페이지로 자르기
     # request된 페이지 뭔지 알아내고 (request 페이지를 변수에 담음)
     page = request.GET.get('page')
     posts = paginator.get_page(page)  # request된 페이지 얻어와서 return

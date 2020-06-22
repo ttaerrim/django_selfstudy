@@ -1,0 +1,17 @@
+<style>
+    .container {
+        font-family: 'Open Sans', sans-serif;
+        
+    }
+    #home {
+            height: 50em;
+            background-image: url('https://t1.daumcdn.net/cfile/blog/996E373A5E324B9311');
+            background-repeat: repeat;
+            font-family: 'Nanum Pen Script', cursive;
+            text-align: center;
+            
+    }
+    .gaofont1 {
+            color: #FA5882;
+    }
+</style>

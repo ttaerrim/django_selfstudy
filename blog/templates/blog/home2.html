@@ -5,33 +5,19 @@
 <a class="btn btn-outline-secondary" href="{% url 'blog:post' %}">글 쓰기</a>
 {% endif %}
 <br>
-<br>
-<table class="table table-hover">
-  <thead class="table-danger">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">제목</th>
-      <th scope="col">글쓴이</th>
-      <th scope="col">작성일</th>
-    </tr>
-  </thead>
 {% for blog in posts %}
-
-  <tbody>
-  
-    <tr>
-      <th scope="row">{{blog.id}}</th>
-      <td><a color="#2E2E2E" onMouseOver="this.style.color='#F7819F'" onMouseOut="this.style.color='#507AFF'" href="{% url 'blog:detail' blog.id %}">{{blog.title}}
-    </a></td>
-      <td>{% if blog.writer %} {{ blog.writer }} {% else %}익명{% endif %}</td>
-      <td>{{blog.pub_date |date:"Y n j H:i"}}</td>
-    </tr>
-   
+<br>
+<div class="card">
+    <div class="card-body">
+        <h1 class="card-title">{{ blog.title }}</h1>
+        <p class="card-subtitle mb-2 text-muted">{{ blog.pub_date |date:"Y n j H:i"}}</p>
+        <p class="card-text">{{ blog.summary }} 
+        <a href="{% url 'blog:detail' blog.id %}" class="badge badge-light">... more</a></p>
+    </div>
+</div>
         
 {% endfor %}
 
-  </tbody>
-</table>
 <br>
 {% if posts.has_previous %}
     <a class="badge badge-pill badge-light" href="?page=1">First</a>
