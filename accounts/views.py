@@ -36,10 +36,16 @@ def mypage(request):
     conn_user = request.user
     conn_profile = Profile.objects.get(user=conn_user)
 
+    if not conn_profile.profile_image:
+        pic_url = ""
+    else:
+        pic_url = conn_profile.profile_image.url
+
     context = {
         'id': conn_user.username,
         'nickname': conn_profile.nickname,
         'intro': conn_profile.introduce,
+        'profile_pic': pic_url,
     }
     return render(request, 'accounts/mypage.html', context=context)
 # def signup(request):

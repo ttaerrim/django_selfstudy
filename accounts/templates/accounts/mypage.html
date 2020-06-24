@@ -3,6 +3,7 @@
 
 <h1>My Page</h1>
 <br>
+    <img width="100px" src="{% if profile_pic %} {{ profile_pic }} {% else %} /media/user/profile_pic/default.jpg {% endif %}" alt="">
     <p>아이디: {{ id }}</p>
     <p>닉네임: {{ nickname }}</p>
     <p>자기 소개: {{ intro }}</p>

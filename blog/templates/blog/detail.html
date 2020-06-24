@@ -3,7 +3,8 @@
 
 
         <h3>{{ blog.title }}</h3>
-        <p style="font-size:10pt">글쓴이: {% if blog.writer %} {{ blog.writer }} {% else %}익명{% endif %} {{ blog.pub_date |date:"Y.n.j H:i"}}</p>
+        <img width="50px" src="{% if blog.profile_image_url %} {{ blog.profile_image_url }} {% else %} /media/user/profile_pic/default.jpg {% endif %}"/>
+        <p style="display: inline-block; font-size:10pt">글쓴이: {% if blog.writer %} {{ blog.writer }} {% else %}익명{% endif %} {{ blog.pub_date |date:"Y.n.j H:i"}}</p>
         <hr><br>
         <p>{{ blog.body }}</p>
         <a class ="badge badge-secondary" href="{% url 'blog:edit' pk=blog.pk %}">수정하기</a>

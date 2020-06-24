@@ -8,7 +8,7 @@ from betterforms.multiform import MultiModelForm
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['nickname', 'introduce', ]
+        fields = ['nickname', 'profile_image', 'introduce', ]
 
 
 class UserCreationMultiForm(MultiModelForm):

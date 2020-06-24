@@ -12,6 +12,7 @@ class Blog(models.Model):
     pub_date = models.DateTimeField('date published')  # 날짜와 시간
     body = models.TextField("내용")  # 긴 문자열
     writer = models.CharField(max_length=100, blank=True)
+    profile_image_url = models.URLField(blank=True, max_length=200)
 
     def __str__(self):
         return self.title

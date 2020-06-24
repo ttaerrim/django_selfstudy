@@ -49,8 +49,14 @@ def blogpost(request):  # form 사용
             conn_profile = Profile.objects.get(user=conn_user)
             nickname = conn_profile.nickname
 
+            if not conn_profile.profile_image:
+                pic_url = ""
+            else:
+                pic_url = conn_profile.profile_image.url
+
             post = form.save(commit=False)
             post.writer = nickname
+            post.profile_image_url = pic_url
             post.pub_date = timezone.now()
             post.save()
             return redirect('blog:home')
@@ -64,7 +70,17 @@ def edit(request, pk):
     if request.method == "POST":
         form = BlogPost(request.POST, instance=blog)
         if form.is_valid():
+            conn_user = request.user
+            conn_profile = Profile.objects.get(user=conn_user)
+            nickname = conn_profile.nickname
+
+            if not conn_profile.profile_image:
+                pic_url = ""
+            else:
+                pic_url = conn_profile.profile_image.url
             blog = form.save(commit=False)
+            post.writer = nickname
+            post.profile_image_url = pic_url
             blog.pub_date = timezone.now()
             blog.save()
             return redirect('blog:home')
