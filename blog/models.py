@@ -1,5 +1,6 @@
 from django.db import models
 
+from accounts.models import Profile
 # username: qshp
 # email: ltr0121@likelion.org
 # password: 1234
@@ -19,3 +20,17 @@ class Blog(models.Model):
 
     def summary(self):
         return self.body[:100]
+
+
+class Comment(models.Model):
+    blog = models.ForeignKey(
+        Blog, on_delete=models.CASCADE, null=True, related_name='comments')
+    comment_date = models.DateTimeField(auto_now_add=True)
+    comment_body = models.CharField(max_length=200)
+    author = models.CharField(max_length=100, blank=True)
+
+    class Meta:
+        ordering = ['-id']
+
+    def __str__(self):
+        return self.comment_body

@@ -5,12 +5,25 @@
         <h3>{{ blog.title }}</h3>
         <img width="50px" src="{% if blog.profile_image_url %} {{ blog.profile_image_url }} {% else %} /media/user/profile_pic/default.jpg {% endif %}"/>
         <p style="display: inline-block; font-size:10pt">글쓴이: {% if blog.writer %} {{ blog.writer }} {% else %}익명{% endif %} {{ blog.pub_date |date:"Y.n.j H:i"}}</p>
-        <hr><br>
-        <p>{{ blog.body }}</p>
+        
+        <div style="display: inline-block; float: right;">
         <a class ="badge badge-secondary" href="{% url 'blog:edit' pk=blog.pk %}">수정하기</a>
         <a class = "badge badge-danger" href="{% url 'blog:delete' pk=blog.pk %}">삭제하기</a>
-        <br>
         <a class="badge badge-light" href="{% url 'blog:home' %}">돌아가기</a>
+        </div>
+        <hr><br>
+        <p>{{ blog.body }}</p>
+        <br>
+        <a class="btn btn-default" href="{% url 'blog:comment' pk=blog.pk %}">Add comment</a>
+        {% for comment in blog.comments.all %}
+        <div class="comment" style="margin: 20px 0px 20px 20px;">
+                <strong style="display: inline=block"><a href="">{{ comment.comment_writer }}</a></strong>
+                <p>{{ comment.comment_date }}</p>
+                <p>{{ comment.comment_body|linebreaks }}</p>
+        </div>
+        {% empty %}
+        <p>No comments here yet :(</p>
+        {% endfor %}
 
 
 {% endblock content %}

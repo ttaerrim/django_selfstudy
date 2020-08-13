@@ -13,6 +13,7 @@
       <th scope="col">제목</th>
       <th scope="col">글쓴이</th>
       <th scope="col">작성일</th>
+      <th scope="col">댓글</th>
     </tr>
   </thead>
 {% for blog in posts %}
@@ -25,6 +26,7 @@
     </a></td>
       <td>{% if blog.writer %} {{ blog.writer }} {% else %}익명{% endif %}</td>
       <td>{{blog.pub_date |date:"Y.n.j H:i"}}</td>
+      <td>{{blog.comments.count}}</td>
     </tr>
    
         

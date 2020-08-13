@@ -2,9 +2,12 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy
 
-from .models import Blog
-from .forms import BlogPost
+from .models import Blog, Comment
+from .forms import BlogPost, CommentForm
 from accounts.models import Profile
 # Create your views here.
 
@@ -24,7 +27,8 @@ def detail(request, blog_id):
     # object를 가져오고 없으면 404 에러를 띄우는 함수, 안에 모델명과 blog 게시글 id 적으면 됨
     blog_detail = get_object_or_404(Blog, pk=blog_id)
     # pk란 모델에서 찍어낸 수많은 객체들을 구분할 수 있는 구분자
-    return render(request, 'blog/detail.html', {'blog': blog_detail})
+    comments = Comment.objects
+    return render(request, 'blog/detail.html', {'blog': blog_detail, 'comments': comments})
 
 
 def post(request):
@@ -65,31 +69,47 @@ def blogpost(request):  # form 사용
         return render(request, 'blog/new.html', {'form': form})
 
 
+@login_required
 def edit(request, pk):
-    blog = get_object_or_404(Blog, pk=pk)
+    post = get_object_or_404(Blog, pk=pk)
     if request.method == "POST":
-        form = BlogPost(request.POST, instance=blog)
-        if form.is_valid():
-            conn_user = request.user
-            conn_profile = Profile.objects.get(user=conn_user)
-            nickname = conn_profile.nickname
+        form = BlogPost(request.POST, instance=post)
+        conn_user = request.user
+        nickname = Profile.objects.get(user=conn_user)
+        if nickname != post.writer:
+            messages.info(request, '수정할 수 없습니다')
+            return HttpResponseRedirect(reverse_lazy('blog_index'))
 
-            if not conn_profile.profile_image:
-                pic_url = ""
-            else:
-                pic_url = conn_profile.profile_image.url
-            blog = form.save(commit=False)
-            post.writer = nickname
-            post.profile_image_url = pic_url
-            blog.pub_date = timezone.now()
-            blog.save()
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.pub_date = timezone.now()
+            post.save()
             return redirect('blog:home')
     else:
-        form = BlogPost(instance=blog)
+        form = BlogPost(instance=post)
         return render(request, 'blog/edit.html', {'form': form})
 
 
 def delete(request, pk):
     blog = Blog.objects.get(id=pk)
+    if form.is_valid():
+        conn_user = request.user
     blog.delete()
     return redirect('blog:home')
+
+
+def comment(request, pk):
+    blog = get_object_or_404(Blog, pk=pk)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            conn_user = request.user
+            comment.author = Profile.objects.get(user=conn_user)
+
+            comment = form.save(commit=False)
+            comment.blog = blog
+            comment.save()
+            return redirect('detail', pk=blog.pk)
+    else:
+        form = CommentForm()
+    return render(request, 'blog/comment.html', {'form': form, })
