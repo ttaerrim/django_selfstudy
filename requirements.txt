@@ -18,7 +18,6 @@ djangorestframework==3.11.0
 docutils==0.15.2
 future==0.16.0
 Faker==4.1.0
-gunicorn==19.9.0
 httpie==1.0.3
 idna==2.7
 iso-639==0.4.5
