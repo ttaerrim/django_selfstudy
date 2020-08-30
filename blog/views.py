@@ -104,12 +104,12 @@ def comment(request, pk):
         form = CommentForm(request.POST)
         if form.is_valid():
             conn_user = request.user
-            comment.author = Profile.objects.get(user=conn_user)
+            form.author = Profile.objects.get(user=conn_user)
 
-            comment = form.save(commit=False)
-            comment.blog = blog
-            comment.save()
-            return redirect('detail', pk=blog.pk)
+            form = form.save(commit=False)
+            form.blog = blog
+            form.save()
+            return redirect('/blog/' + str(blog.id))
     else:
         form = CommentForm()
-    return render(request, 'blog/comment.html', {'form': form, })
+    return render(request, 'blog/comment.html', {'form': form})
